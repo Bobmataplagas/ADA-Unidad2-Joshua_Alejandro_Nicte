@@ -148,7 +148,6 @@ public class GUI_glucosa extends JFrame {
 		        String fecha = (String) comboBox.getSelectedItem();
 				
 		        pacienteNuevo = new paciente (nom, val, fecha);
-		        lista.add(pacienteNuevo);
 		        */
 			}
 		});
@@ -166,6 +165,5 @@ public class GUI_glucosa extends JFrame {
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
 		
-	
 	}
 }
