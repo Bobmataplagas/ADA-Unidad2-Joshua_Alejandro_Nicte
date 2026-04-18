@@ -23,7 +23,7 @@ public class GUI_glucosa extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 
-	
+	ArrayList<paciente> lista = new ArrayList<paciente>();
 	public class paciente {
 		String nombre;
 		int valor;
@@ -33,6 +33,7 @@ public class GUI_glucosa extends JFrame {
 			this.nombre=nombre;
 			this.valor=valor;
 			this.fecha=fecha;
+			
 		}
 	
 	}
@@ -64,7 +65,7 @@ public class GUI_glucosa extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		ArrayList<String> lista = new ArrayList<String>();
+		
 		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setForeground(Color.LIGHT_GRAY);
