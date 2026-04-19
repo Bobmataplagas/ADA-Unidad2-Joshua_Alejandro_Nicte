@@ -26,7 +26,7 @@ public class GUI_glucosa extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 
-	
+	ArrayList<paciente> lista = new ArrayList<paciente>();
 	public class paciente {
 		String nombre;
 		int valor;
@@ -67,7 +67,7 @@ public class GUI_glucosa extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		ArrayList<String> lista = new ArrayList<String>();
+		
 		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setForeground(Color.LIGHT_GRAY);
@@ -131,7 +131,17 @@ public class GUI_glucosa extends JFrame {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
+				
+				if (textField.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debes ingresar el nombre");
+		            return;
+				}
+				
+				if (textField_1.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debes ingresar el valor de la glucosa");
+		            return;
+				}
+				
 				try {
 		        	int va = 0;
 		            va = Integer.parseInt(textField_1.getText());
@@ -145,14 +155,26 @@ public class GUI_glucosa extends JFrame {
 		        paciente pacienteNuevo;		        
 		        String nom = textField.getText();
 		        int val = Integer.parseInt(textField_1.getText());
-		        String fecha = (String) comboBox.getSelectedItem();
-				
+		        
+		        String dia = String.valueOf(comboBox.getSelectedItem());
+		        String mes = String.valueOf(comboBoxMes.getSelectedItem());
+		        String año = String.valueOf(comboBoxAño.getSelectedItem());
+		        String fecha = dia+"/"+mes+"/"+año;
+		        
 		        pacienteNuevo = new paciente (nom, val, fecha);
-		        */
+		        lista.add(pacienteNuevo);
+		        
+		        textField.setText("");
+		        textField_1.setText("");
+		        JOptionPane.showMessageDialog(null, "Registro completado");
 			}
 		});
 		btnGuardar.setBounds(120, 196, 89, 23);
 		panel1.add(btnGuardar);
+		
+		JLabel lblmg = new JLabel("mg/dL");
+		lblmg.setBounds(215, 80, 46, 14);
+		panel1.add(lblmg);
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
