@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 public class GUI_glucosa extends JFrame {
 
@@ -41,6 +42,13 @@ public class GUI_glucosa extends JFrame {
 			this.fecha=fecha;
 			
 		}
+
+		@Override
+		public String toString() {
+			return nombre +"  -  " +valor +"  -  " + fecha;
+		}
+		
+		
 	
 	}
 	
@@ -144,6 +152,7 @@ public class GUI_glucosa extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) (panelglucosa.getLayout());
 				cl.show(panelglucosa, "historial");
+				mostrarHistorial();
 			}
 		});
 		toolBar.add(btnHistorial);
@@ -152,6 +161,17 @@ public class GUI_glucosa extends JFrame {
 	}
 	
 	public void mostrarHistorial() {
+		modelo.clear();
 		
+		lista.add(new paciente("Juan",8,"fecha"));
+		lista.add(new paciente("Abel",8,"fecha"));
+		lista.add(new paciente("Abel",8,"fecha"));
+		lista.add(new paciente("Abel",8,"fecha"));
+		lista.add(new paciente("Carmela",8,"fecha"));
+		lista.add(new paciente("Benito",8,"fecha"));
+		
+		lista.sort((p1,p2)->p1.nombre.compareToIgnoreCase(p2.nombre));
+		
+		JOptionPane.showMessageDialog(null, lista);
 	}
 }
