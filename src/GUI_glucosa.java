@@ -102,7 +102,7 @@ public class GUI_glucosa extends JFrame {
 		panelglucosa.add(panelHistorial, "historial");
 		panelHistorial.setLayout(null);
 		
-		JList Jlisthistorial = new JList();
+		JList Jlisthistorial = new JList(modelo);
 		Jlisthistorial.setBounds(10, 10, 439, 329);
 		panelHistorial.add(Jlisthistorial);
 		
@@ -172,6 +172,15 @@ public class GUI_glucosa extends JFrame {
 		
 		lista.sort((p1,p2)->p1.nombre.compareToIgnoreCase(p2.nombre));
 		
-		JOptionPane.showMessageDialog(null, lista);
+		String actual = ""; 
+		
+		for (paciente p : lista) {
+			if (!p.nombre.equals(actual)) {
+				modelo.addElement("--"+p.nombre+"--");
+				modelo.addElement("Tomas: ");
+				actual = p.nombre;
+			}
+		modelo.addElement("Valor: "+p.valor+" Fecha: "+p.fecha);
+		}
 	}
 }
