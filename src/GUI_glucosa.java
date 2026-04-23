@@ -137,7 +137,7 @@ public class GUI_glucosa extends JFrame {
 		JButton btnNewButton = new JButton("BUSCAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				areaResultados.setText("");
 				String nombreBuscar = textField_2.getText().toLowerCase();
 				String resultados = "";
 				for (paciente i : lista) {
@@ -170,6 +170,7 @@ public class GUI_glucosa extends JFrame {
 		
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
+		
 		
 		
 		
