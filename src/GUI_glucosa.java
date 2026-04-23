@@ -15,6 +15,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
 
 public class GUI_glucosa extends JFrame {
 
@@ -84,6 +85,14 @@ public class GUI_glucosa extends JFrame {
 		panelglucosa.add(panel1, "registro");
 		panel1.setLayout(null);
 		
+		JPanel panelHistorial = new JPanel();
+		panelglucosa.add(panelHistorial, "historial");
+		panelHistorial.setLayout(null);
+		
+		JList Jlisthistorial = new JList();
+		Jlisthistorial.setBounds(10, 10, 439, 329);
+		panelHistorial.add(Jlisthistorial);
+		
 		textField = new JTextField();
 		textField.setColumns(10);
 		textField.setBounds(123, 43, 86, 20);
@@ -124,6 +133,9 @@ public class GUI_glucosa extends JFrame {
 		
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
+		
+		JButton btnHistorial = new JButton("Historial");
+		toolBar.add(btnHistorial);
 		
 	
 	}
