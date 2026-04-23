@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.JTextArea;
 
 public class GUI_glucosa extends JFrame {
 
@@ -25,6 +26,7 @@ public class GUI_glucosa extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextArea areaResultados;
 
 	ArrayList<paciente> lista = new ArrayList<paciente>();
 	private JTextField textField_2;
@@ -39,6 +41,7 @@ public class GUI_glucosa extends JFrame {
 			this.fecha=fecha;
 			
 		}
+		
 	
 	}
 	
@@ -58,6 +61,7 @@ public class GUI_glucosa extends JFrame {
 			}
 		});
 	}
+	
 
 	/**
 	 * Create the frame.
@@ -93,6 +97,7 @@ public class GUI_glucosa extends JFrame {
 		textField.setColumns(10);
 		textField.setBounds(123, 43, 86, 20);
 		panel1.add(textField);
+		
 		
 		JLabel lblValor = new JLabel("Valor");
 		lblValor.setBounds(30, 76, 71, 14);
@@ -142,14 +147,18 @@ public class GUI_glucosa extends JFrame {
 					
 				}
 				if (resultados.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No se encontraron resultados");
+					areaResultados.setText ("No se encontraron resultados");
 				} else {
-					JOptionPane.showMessageDialog(null, resultados);
+		         areaResultados.setText(resultados);
 				}
 			}
 		});
 		btnNewButton.setBounds(336, -1, 88, 22);
 		panel1.add(btnNewButton);
+		
+		areaResultados = new JTextArea();
+		areaResultados.setBounds(266, 41, 170, 119);
+		panel1.add(areaResultados);
 	
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
@@ -161,6 +170,8 @@ public class GUI_glucosa extends JFrame {
 		
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
+		
+		
 		
 	
 	}
