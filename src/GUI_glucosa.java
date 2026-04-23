@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 import javax.swing.JComboBox;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.BorderLayout;
@@ -25,6 +26,10 @@ public class GUI_glucosa extends JFrame {
 	private JTextField textField_1;
 
 	ArrayList<paciente> lista = new ArrayList<paciente>();
+	
+	DefaultListModel<String> modelo = new DefaultListModel<>();
+	JList<String> listahistorial = new JList<>(modelo);
+	
 	public class paciente {
 		String nombre;
 		int valor;
@@ -135,8 +140,18 @@ public class GUI_glucosa extends JFrame {
 		toolBar.addSeparator();
 		
 		JButton btnHistorial = new JButton("Historial");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout) (panelglucosa.getLayout());
+				cl.show(panelglucosa, "historial");
+			}
+		});
 		toolBar.add(btnHistorial);
-		
+		toolBar.addSeparator();
 	
+	}
+	
+	public void mostrarHistorial() {
+		
 	}
 }
