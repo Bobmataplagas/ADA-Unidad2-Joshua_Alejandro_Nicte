@@ -5,9 +5,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,6 +17,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class GUI_glucosa extends JFrame {
 
@@ -24,6 +27,7 @@ public class GUI_glucosa extends JFrame {
 	private JTextField textField_1;
 
 	ArrayList<paciente> lista = new ArrayList<paciente>();
+	private JTextField textField_2;
 	public class paciente {
 		String nombre;
 		int valor;
@@ -37,6 +41,7 @@ public class GUI_glucosa extends JFrame {
 		}
 	
 	}
+	
 	
 	/**
 	 * Launch the application.
@@ -113,6 +118,38 @@ public class GUI_glucosa extends JFrame {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(120, 196, 89, 23);
 		panel1.add(btnGuardar);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(113, 0, 204, 20);
+		panel1.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Buscador:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel.setBounds(30, 3, 71, 14);
+		panel1.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("BUSCAR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String nombreBuscar = textField_2.getText().toLowerCase();
+				String resultados = "";
+				for (paciente i : lista) {
+					if (i.nombre.toLowerCase().contains(nombreBuscar)) {
+						resultados += i.nombre + " " + i.valor + " " + i.fecha + "\n";
+					}
+					
+				}
+				if (resultados.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No se encontraron resultados");
+				} else {
+					JOptionPane.showMessageDialog(null, resultados);
+				}
+			}
+		});
+		btnNewButton.setBounds(336, -1, 88, 22);
+		panel1.add(btnNewButton);
 	
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
