@@ -163,13 +163,6 @@ public class GUI_glucosa extends JFrame {
 	public void mostrarHistorial() {
 		modelo.clear();
 		
-		lista.add(new paciente("Juan",8,"fecha"));
-		lista.add(new paciente("Abel",8,"fecha"));
-		lista.add(new paciente("Abel",8,"fecha"));
-		lista.add(new paciente("Abel",8,"fecha"));
-		lista.add(new paciente("Carmela",8,"fecha"));
-		lista.add(new paciente("Benito",8,"fecha"));
-		
 		lista.sort((p1,p2)->p1.nombre.compareToIgnoreCase(p2.nombre));
 		
 		String actual = ""; 
