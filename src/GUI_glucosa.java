@@ -138,19 +138,26 @@ public class GUI_glucosa extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				areaResultados.setText("");
-				String nombreBuscar = textField_2.getText().toLowerCase();
-				String resultados = "";
-				for (paciente i : lista) {
-					if (i.nombre.toLowerCase().contains(nombreBuscar)) {
-						resultados += i.nombre + " " + i.valor + " " + i.fecha + "\n";
-					}
-					
-				}
-				if (resultados.isEmpty()) {
-					areaResultados.setText ("No se encontraron resultados");
-				} else {
-		         areaResultados.setText(resultados);
-				}
+				
+				String nombreBuscar = textField_2.getText().trim();
+				
+		        String resultados = "NOMBRE     VALOR     FECHA\n";
+		        resultados += "------------------------------------------\n";
+
+		        boolean encontrado = false;
+
+		        for (paciente i : lista) {
+		            if (i.nombre.equalsIgnoreCase(nombreBuscar)) {
+		                resultados += String.format("%-12s %-12d %-15s\n", i.nombre ,    i.valor ,i.fecha);
+		                encontrado = true;
+		            }
+		        }
+
+		        if (encontrado) {
+		            areaResultados.setText(resultados);
+		        } else {
+		            areaResultados.setText("No se encontraron resultados");
+		        }
 			}
 		});
 		btnNewButton.setBounds(336, -1, 88, 22);
@@ -170,7 +177,6 @@ public class GUI_glucosa extends JFrame {
 		
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
-		
 		
 		
 		
