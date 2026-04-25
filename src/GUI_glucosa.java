@@ -141,8 +141,6 @@ public class GUI_glucosa extends JFrame {
 		JComboBox<Integer> comboBox = new JComboBox<Integer>();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
 		"12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
-		
-		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(123, 105, 86, 22);
 		comboBox.setSelectedIndex(h.getDayOfMonth()-1);
 		panel1.add(comboBox);
