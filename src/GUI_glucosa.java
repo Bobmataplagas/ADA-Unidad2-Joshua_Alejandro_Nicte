@@ -133,9 +133,55 @@ public class GUI_glucosa extends JFrame {
 		panel1.add(lblNombre);
 		
 		JButton btnGuardar = new JButton("Guardar");
+
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (textField.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debes ingresar el nombre");
+		            return;
+				}
+				
+				if (textField_1.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debes ingresar el valor de la glucosa");
+		            return;
+				}
+				
+				try {
+		        	int va = 0;
+		            va = Integer.parseInt(textField_1.getText());
+		        } catch (NumberFormatException cm) {
+		            JOptionPane.showMessageDialog(null, "Error: El campo 'Valor' debe ser un número (sin letras ni espacios)"
+		            ,"error",JOptionPane.ERROR_MESSAGE);
+		            textField_1.setText("");
+		            return; 
+		        }
+		        
+		        paciente pacienteNuevo;		        
+		        String nom = textField.getText();
+		        int val = Integer.parseInt(textField_1.getText());
+		        
+		        String dia = String.valueOf(comboBox.getSelectedItem());
+		        String mes = String.valueOf(comboBoxMes.getSelectedItem());
+		        String año = String.valueOf(comboBoxAño.getSelectedItem());
+		        String fecha = dia+"/"+mes+"/"+año;
+		        
+		        pacienteNuevo = new paciente (nom, val, fecha);
+		        lista.add(pacienteNuevo);
+		        
+		        textField.setText("");
+		        textField_1.setText("");
+		        JOptionPane.showMessageDialog(null, "Registro completado");
+			}
+		});
 		btnGuardar.setBounds(120, 196, 89, 23);
 		panel1.add(btnGuardar);
-	
+		
+		JLabel lblmg = new JLabel("mg/dL");
+		lblmg.setBounds(215, 80, 46, 14);
+		panel1.add(lblmg);
+		
+
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -147,6 +193,7 @@ public class GUI_glucosa extends JFrame {
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
 		
+
 		JButton btnHistorial = new JButton("Historial");
 		btnHistorial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -175,5 +222,6 @@ public class GUI_glucosa extends JFrame {
 			}
 		modelo.addElement("Valor: "+p.valor+" Fecha: "+p.fecha);
 		}
+
 	}
 }
