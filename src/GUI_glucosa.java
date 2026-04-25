@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.JComboBox;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 
@@ -17,8 +18,13 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+
 import java.awt.Font;
 import javax.swing.JTextArea;
+
+import javax.swing.JList;
+
+
 
 public class GUI_glucosa extends JFrame {
 
@@ -30,6 +36,10 @@ public class GUI_glucosa extends JFrame {
 
 	ArrayList<paciente> lista = new ArrayList<paciente>();
 	private JTextField textField_2;
+	
+	DefaultListModel<String> modelo = new DefaultListModel<>();
+	JList<String> listahistorial = new JList<>(modelo);
+	
 	public class paciente {
 		String nombre;
 		int valor;
@@ -41,6 +51,12 @@ public class GUI_glucosa extends JFrame {
 			this.fecha=fecha;
 			
 		}
+
+		@Override
+		public String toString() {
+			return nombre +"  -  " +valor +"  -  " + fecha;
+		}
+		
 		
 	
 	}
@@ -93,6 +109,14 @@ public class GUI_glucosa extends JFrame {
 		panelglucosa.add(panel1, "registro");
 		panel1.setLayout(null);
 		
+		JPanel panelHistorial = new JPanel();
+		panelglucosa.add(panelHistorial, "historial");
+		panelHistorial.setLayout(null);
+		
+		JList Jlisthistorial = new JList(modelo);
+		Jlisthistorial.setBounds(10, 10, 439, 329);
+		panelHistorial.add(Jlisthistorial);
+		
 		textField = new JTextField();
 		textField.setColumns(10);
 		textField.setBounds(123, 43, 86, 20);
@@ -121,9 +145,55 @@ public class GUI_glucosa extends JFrame {
 		panel1.add(lblNombre);
 		
 		JButton btnGuardar = new JButton("Guardar");
+
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (textField.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debes ingresar el nombre");
+		            return;
+				}
+				
+				if (textField_1.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debes ingresar el valor de la glucosa");
+		            return;
+				}
+				
+				try {
+		        	int va = 0;
+		            va = Integer.parseInt(textField_1.getText());
+		        } catch (NumberFormatException cm) {
+		            JOptionPane.showMessageDialog(null, "Error: El campo 'Valor' debe ser un número (sin letras ni espacios)"
+		            ,"error",JOptionPane.ERROR_MESSAGE);
+		            textField_1.setText("");
+		            return; 
+		        }
+		        
+		        paciente pacienteNuevo;		        
+		        String nom = textField.getText();
+		        int val = Integer.parseInt(textField_1.getText());
+		        
+		        String dia = String.valueOf(comboBox.getSelectedItem());
+		        String mes = String.valueOf(comboBoxMes.getSelectedItem());
+		        String año = String.valueOf(comboBoxAño.getSelectedItem());
+		        String fecha = dia+"/"+mes+"/"+año;
+		        
+		        pacienteNuevo = new paciente (nom, val, fecha);
+		        lista.add(pacienteNuevo);
+		        
+		        textField.setText("");
+		        textField_1.setText("");
+		        JOptionPane.showMessageDialog(null, "Registro completado");
+			}
+		});
 		btnGuardar.setBounds(120, 196, 89, 23);
 		panel1.add(btnGuardar);
+    
+    JLabel lblmg = new JLabel("mg/dL");
+		lblmg.setBounds(215, 80, 46, 14);
+		panel1.add(lblmg);
 		
+
 		textField_2 = new JTextField();
 		textField_2.setBounds(113, 0, 204, 20);
 		panel1.add(textField_2);
@@ -167,6 +237,7 @@ public class GUI_glucosa extends JFrame {
 		areaResultados.setBounds(266, 41, 170, 119);
 		panel1.add(areaResultados);
 	
+  
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -178,8 +249,36 @@ public class GUI_glucosa extends JFrame {
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
 		
-		
-		
+    
+		JButton btnHistorial = new JButton("Historial");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout) (panelglucosa.getLayout());
+				cl.show(panelglucosa, "historial");
+				mostrarHistorial();
+			}
+		});
+		toolBar.add(btnHistorial);
+		toolBar.addSeparator();
+
 	
+	}
+	
+	public void mostrarHistorial() {
+		modelo.clear();
+		
+		lista.sort((p1,p2)->p1.nombre.compareToIgnoreCase(p2.nombre));
+		
+		String actual = ""; 
+		
+		for (paciente p : lista) {
+			if (!p.nombre.equals(actual)) {
+				modelo.addElement("--"+p.nombre+"--");
+				modelo.addElement("Tomas: ");
+				actual = p.nombre;
+			}
+		modelo.addElement("Valor: "+p.valor+" Fecha: "+p.fecha);
+		}
+
 	}
 }
