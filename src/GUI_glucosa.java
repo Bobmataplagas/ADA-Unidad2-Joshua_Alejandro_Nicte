@@ -252,7 +252,7 @@ public class GUI_glucosa extends JFrame {
 		panel1.add(btnNewButton);
 		
 		areaResultados = new JTextArea();
-		areaResultados.setBounds(266, 41, 170, 119);
+		areaResultados.setBounds(254, 140, 170, 198);
 		panel1.add(areaResultados);
 	
   
