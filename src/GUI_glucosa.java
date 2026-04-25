@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 import javax.swing.JComboBox;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.BorderLayout;
@@ -15,6 +16,8 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 public class GUI_glucosa extends JFrame {
 
@@ -24,6 +27,10 @@ public class GUI_glucosa extends JFrame {
 	private JTextField textField_1;
 
 	ArrayList<paciente> lista = new ArrayList<paciente>();
+	
+	DefaultListModel<String> modelo = new DefaultListModel<>();
+	JList<String> listahistorial = new JList<>(modelo);
+	
 	public class paciente {
 		String nombre;
 		int valor;
@@ -35,6 +42,13 @@ public class GUI_glucosa extends JFrame {
 			this.fecha=fecha;
 			
 		}
+
+		@Override
+		public String toString() {
+			return nombre +"  -  " +valor +"  -  " + fecha;
+		}
+		
+		
 	
 	}
 	
@@ -83,6 +97,14 @@ public class GUI_glucosa extends JFrame {
 		JPanel panel1 = new JPanel();
 		panelglucosa.add(panel1, "registro");
 		panel1.setLayout(null);
+		
+		JPanel panelHistorial = new JPanel();
+		panelglucosa.add(panelHistorial, "historial");
+		panelHistorial.setLayout(null);
+		
+		JList Jlisthistorial = new JList(modelo);
+		Jlisthistorial.setBounds(10, 10, 439, 329);
+		panelHistorial.add(Jlisthistorial);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
@@ -171,5 +193,35 @@ public class GUI_glucosa extends JFrame {
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
 		
+
+		JButton btnHistorial = new JButton("Historial");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout) (panelglucosa.getLayout());
+				cl.show(panelglucosa, "historial");
+				mostrarHistorial();
+			}
+		});
+		toolBar.add(btnHistorial);
+		toolBar.addSeparator();
+	
+	}
+	
+	public void mostrarHistorial() {
+		modelo.clear();
+		
+		lista.sort((p1,p2)->p1.nombre.compareToIgnoreCase(p2.nombre));
+		
+		String actual = ""; 
+		
+		for (paciente p : lista) {
+			if (!p.nombre.equals(actual)) {
+				modelo.addElement("--"+p.nombre+"--");
+				modelo.addElement("Tomas: ");
+				actual = p.nombre;
+			}
+		modelo.addElement("Valor: "+p.valor+" Fecha: "+p.fecha);
+		}
+
 	}
 }
