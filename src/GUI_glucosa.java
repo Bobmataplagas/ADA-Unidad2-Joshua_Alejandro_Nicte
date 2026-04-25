@@ -7,18 +7,19 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
-
+import java.time.LocalDate;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-
+import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import javax.swing.JTextArea;
 
@@ -135,11 +136,30 @@ public class GUI_glucosa extends JFrame {
 		JLabel lblFecha = new JLabel("Fecha");
 		lblFecha.setBounds(30, 109, 71, 14);
 		panel1.add(lblFecha);
+
+		LocalDate h = LocalDate.now();
+		JComboBox<Integer> comboBox = new JComboBox<Integer>();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+		"12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(123, 105, 86, 22);
+		comboBox.setSelectedIndex(h.getDayOfMonth()-1);
 		panel1.add(comboBox);
-		
+
+		JComboBox<Integer> comboBoxMes = new JComboBox<Integer>();
+		comboBoxMes.setModel(new DefaultComboBoxModel(new String[] {"01", "02", "03", "04", "05", "06", "07", "08", "09",
+"10", "11", "12"}));
+		comboBoxMes.setBounds(218, 105, 86, 22);
+		comboBoxMes.setSelectedIndex(h.getMonthValue()-1);
+		panel1.add(comboBoxMes);
+
+		JComboBox<String> comboBoxAño = new JComboBox<String>();
+		comboBoxAño.setModel(new DefaultComboBoxModel(new String[] {"2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"}));
+		comboBoxAño.setBounds(314, 105, 86, 22);
+		comboBoxAño.setSelectedItem(String.valueOf(h.getYear()));
+		panel1.add(comboBoxAño);
+																	
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(30, 46, 46, 14);
 		panel1.add(lblNombre);
