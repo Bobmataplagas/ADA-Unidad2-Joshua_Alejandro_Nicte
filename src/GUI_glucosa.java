@@ -5,10 +5,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.JComboBox;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,8 +18,13 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+
+import java.awt.Font;
+import javax.swing.JTextArea;
+
 import javax.swing.JList;
-import javax.swing.JOptionPane;
+
+
 
 public class GUI_glucosa extends JFrame {
 
@@ -25,8 +32,10 @@ public class GUI_glucosa extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextArea areaResultados;
 
 	ArrayList<paciente> lista = new ArrayList<paciente>();
+	private JTextField textField_2;
 	
 	DefaultListModel<String> modelo = new DefaultListModel<>();
 	JList<String> listahistorial = new JList<>(modelo);
@@ -52,6 +61,7 @@ public class GUI_glucosa extends JFrame {
 	
 	}
 	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -67,6 +77,7 @@ public class GUI_glucosa extends JFrame {
 			}
 		});
 	}
+	
 
 	/**
 	 * Create the frame.
@@ -110,6 +121,7 @@ public class GUI_glucosa extends JFrame {
 		textField.setColumns(10);
 		textField.setBounds(123, 43, 86, 20);
 		panel1.add(textField);
+		
 		
 		JLabel lblValor = new JLabel("Valor");
 		lblValor.setBounds(30, 76, 71, 14);
@@ -176,12 +188,56 @@ public class GUI_glucosa extends JFrame {
 		});
 		btnGuardar.setBounds(120, 196, 89, 23);
 		panel1.add(btnGuardar);
-		
-		JLabel lblmg = new JLabel("mg/dL");
+    
+    JLabel lblmg = new JLabel("mg/dL");
 		lblmg.setBounds(215, 80, 46, 14);
 		panel1.add(lblmg);
 		
 
+		textField_2 = new JTextField();
+		textField_2.setBounds(113, 0, 204, 20);
+		panel1.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Buscador:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel.setBounds(30, 3, 71, 14);
+		panel1.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("BUSCAR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				areaResultados.setText("");
+				
+				String nombreBuscar = textField_2.getText().trim();
+				
+		        String resultados = "NOMBRE     VALOR     FECHA\n";
+		        resultados += "------------------------------------------\n";
+
+		        boolean encontrado = false;
+
+		        for (paciente i : lista) {
+		            if (i.nombre.equalsIgnoreCase(nombreBuscar)) {
+		                resultados += String.format("%-12s %-12d %-15s\n", i.nombre ,    i.valor ,i.fecha);
+		                encontrado = true;
+		            }
+		        }
+
+		        if (encontrado) {
+		            areaResultados.setText(resultados);
+		        } else {
+		            areaResultados.setText("No se encontraron resultados");
+		        }
+			}
+		});
+		btnNewButton.setBounds(336, -1, 88, 22);
+		panel1.add(btnNewButton);
+		
+		areaResultados = new JTextArea();
+		areaResultados.setBounds(266, 41, 170, 119);
+		panel1.add(areaResultados);
+	
+  
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -193,7 +249,7 @@ public class GUI_glucosa extends JFrame {
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
 		
-
+    
 		JButton btnHistorial = new JButton("Historial");
 		btnHistorial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -204,6 +260,7 @@ public class GUI_glucosa extends JFrame {
 		});
 		toolBar.add(btnHistorial);
 		toolBar.addSeparator();
+
 	
 	}
 	
